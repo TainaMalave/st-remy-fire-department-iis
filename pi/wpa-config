@@ -1,1 +1,11 @@
 #Please past configs here to share
+
+#####################################
+network={ 
+ssid=”MySpectrumWiFi12-2G”  
+psk=”gentlelemon054” 
+proto=RSN 
+key_mgmt=WPA-PSK 
+pairwise=CCMP 
+auth_alg=OPEN 
+} 
