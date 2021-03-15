@@ -1,0 +1,6 @@
+ID #,Bar Code,Type,Manufacturer,Model,Serial Number,Issued To,Date Issued,Date of Purchase,Accessories,Notes,Photo,Status
+HBHHR13,,High Band Hand Held Radio,Motorola,XPR3500e,867TUD8625,Karl Wick,,,"Battery, Microphone, Radio Strap",,,In Service
+HBMR1,,High Band Mobile Radio,Motorola,XPR2500,776IRC0830,Station 2 Desk,2015,6/5/2015,"Power Supply, see PWRSP1",,,In service
+LBMR3,,Low Band Mobile Radio,Motorola,Max Trac,356TYG1718,52-30,Unknown,unknown,,,,In Service
+PGR5,,Pager,Motorola,Minitor VI,1365RM0745,,,,"Battery, Charger",,,Not in Service
+PWRSP1,,Power Supply,DuraComm,13.6v,None,Station 2 Desk,Unknown,Unknown,,,,In Service
