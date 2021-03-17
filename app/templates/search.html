@@ -11,18 +11,20 @@
     <form class="example" method="post" action="" 
      style="margin:auto;max-width:600px">
         <input type="text" placeholder="Search by author or 
-         book, or all to see all the data" name="book">
+         book, or all to see all the data" name="inventory">
         <button type="submit"><i class="fa fa-search"></i>
         </button>
     </form>
     <p></p>
     <center>
-    {% for item in data %}
-        <tr>
-            <td> {{item[0]}} by {{item[1]}}</td>
-            </br>
-        </tr>
-    {% endfor %}
+      {% for item in data %}
+            <tr>
+              {%for i in range(0, item|length)%}
+              <td>{{item[i]}}</td>
+              {% endfor %}
+                </br>
+            </tr>
+      {% endfor %}
     </center>
 </body>
 </html>
