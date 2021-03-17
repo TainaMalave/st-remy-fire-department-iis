@@ -18,8 +18,12 @@ def login():
         if request.form['username'] != 'admin' or request.form['password'] != 'password123':
             error = 'Invalid Credentials. Please try again.'
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('searchOrEntry'))
     return render_template('login.html', error=error)
+
+@app.route("/searchOrEntry")
+def searchOrEntry():
+    return render_template('searchOrEntry.html')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
