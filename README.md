@@ -1,4 +1,4 @@
-# St. Remy Fire Department Information and Iventory System
+# St. Remy Fire Department Information and Inventory System
 
 
 ## Problem Description
@@ -19,3 +19,20 @@ Generate QR codes to print and affix to pieces of gear
 Interface with camera or barcode/QR scanner to facilitate lookups
 
 Provide web interface to lookup individual firefighters and see what gear was issued to them
+
+
+## Related Technologies
+For this project, I will be using the following related technologies: 
+
+Raspbian Linux - for the operating system of the Raspberry Pi 3 B+
+
+Frontend -
+
+- HTML/CSS
+- JavaScript
+- AJAX
+
+Backend -
+- SQLITE3
+- Flask
+- Python
