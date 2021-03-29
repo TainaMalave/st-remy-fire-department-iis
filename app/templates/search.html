@@ -14,15 +14,17 @@
         </button>
     </form>
     <p></p>
-    <center>
-      {% for item in data %}
-            <tr>
-              {%for i in range(0, item|length)%}
-              <td>{{item[i]}}</td>
-              {% endfor %}
-                </br>
-            </tr>
-      {% endfor %}
-    </center>
+    <table>
+      <center>
+        {% for item in data %}
+              <tr>
+                {%for i in range(0, item|length)%}
+                <td>{{item[i]}}</td>
+                {% endfor %}
+                  </br>
+              </tr>
+        {% endfor %}
+      </center>
+    </table>
 </body>
 </html>
