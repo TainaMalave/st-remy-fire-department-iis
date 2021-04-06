@@ -20,21 +20,14 @@
   <body>
     <h1><center>What would you like to search?</center></h1>
     <form class="example" method="post" action="" >
-      <input type="text" placeholder="Search by ID" name="inventory" />
+      <input type="text" placeholder="Search by ID" name="search" />
       <button type="submit"><i class="fa fa-search"></i>
       </button>
       <div class="select">
-        <select name="categories" class="filter-categories">
-          <option value="all">All</option>
-          {%for item in category%}
-            <option value="{{item[0]}}">{{item[0]}}</option>
+        <select name="category_dropdown" id="category_dropdown">
+          {% for each in category_dropdown %}
+          <option value="{{each}}">{{each}}</option>
           {% endfor %}
-
-         <!--  <option value="all">All</option>
-          <option value="Radio">Radios</option>
-          <option value="Pager">Pagers</option>
-          <option value="Power Supply">Power Supply</option>
-          <option value="Personnel">Personnel</option> -->
         </select>
       </div>
     </form>
@@ -42,24 +35,17 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Manufacturer</th>
-            <th>Model</th>
-            <th>Serial Number</th>
-            <th>Issued To</th>
-            <th>Date Issued</th>
-            <th>Date of Purchase</th>
-            <th>Accessories</th>
-            <th>Status</th>
-            <th>Category</th>
+            {% for column in columns %}
+                <th>{{ column }}</th>
+            {% endfor %}
           </tr>
         </thead>
         <center>
+          
           {% for item in data %}
                 <tr>
                   {%for i in range(0, item|length)%}
-                  <td>{{item[i]}}</td>
+                  <td>{{ item[i]|e }}</td>
                   {% endfor %}
                     </br>
                 </tr>
@@ -67,7 +53,5 @@
         </center>
       </table>
     </div>
-
-    <script src="/static/js/script.js"></script>
   </body>
 </html>
