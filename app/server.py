@@ -55,6 +55,72 @@ def search():
                 conn.commit()
                 data = cursor.fetchall()
 
+        if category == "PPE":
+            columns = ["Type", "Serial Number",
+                       "Date of Manufacture", "Issued To"]
+            ppe_select = "type, serialNum, dateOfManufacture, issuedTo"
+
+            if (search == "all" or len(search) == 0):
+                cursor.execute("SELECT "+ppe_select+" FROM ppe")
+                conn.commit()
+                data = cursor.fetchall()
+                # print(data)
+            else:
+                search = "%" + search + "%"
+                cursor.execute(
+                    "SELECT "+ppe_select+" FROM ppe WHERE type LIKE ? OR serialNum LIKE ? OR dateOfManufacture LIKE ? OR issuedTo LIKE ?")
+                conn.commit()
+                data = cursor.fetchall()
+
+        if category == "Equipment":
+            columns = ["Type", "Make", "Model", "Serial Number", "Issued To"]
+            equipment_select = "type, make, model, serialNum, issuedTo"
+
+            if (search == "all" or len(search) == 0):
+                cursor.execute("SELECT "+equipment_select+" FROM equipment")
+                conn.commit()
+                data = cursor.fetchall()
+                # print(data)
+            else:
+                search = "%" + search + "%"
+                cursor.execute(
+                    "SELECT "+equipment_select+" FROM equipment WHERE type LIKE ? OR make LIKE ? OR model LIKE ? OR serialNum LIKE ? OR issuedTo LIKE ?")
+                conn.commit()
+                data = cursor.fetchall()
+
+        if category == "Air Pack":
+            columns = ["Serial Number", "Location"]
+            airpack_select = "serialNum, location"
+
+            if (search == "all" or len(search) == 0):
+                cursor.execute("SELECT "+airpack_select+" FROM airpack")
+                conn.commit()
+                data = cursor.fetchall()
+                # print(data)
+            else:
+                search = "%" + search + "%"
+                cursor.execute(
+                    "SELECT "+airpack_select+" FROM airpack WHERE serialNum LIKE ? OR location LIKE ?")
+                conn.commit()
+                data = cursor.fetchall()
+
+        if category == "Personnel":
+            columns = ["Name", "Rank", "Primary Role", "Address", "Phone", "Email",
+                       "Emergency Contact", "Date Joined", "Certifications", "Date of Last Physical"]
+            personnel_select = "name, rank, primaryRole, address, phone, email, emergencyContact, dateJoined, certifications, dateOfLastPhysical"
+
+            if (search == "all" or len(search) == 0):
+                cursor.execute("SELECT "+personnel_select+" FROM personnel")
+                conn.commit()
+                data = cursor.fetchall()
+                # print(data)
+            else:
+                search = "%" + search + "%"
+                cursor.execute(
+                    "SELECT "+personnel_select+" FROM personnel WHERE name LIKE ? OR rank LIKE ? OR primaryROLE LIKE ? OR address LIKE ? OR phone LIKE ? OR email LIKE ? OR emergencyContact LIKE ? OR dateJoined LIKE ? OR certifications LIKE ? OR dateOfLastPhyiscal LIKE ?")
+                conn.commit()
+                data = cursor.fetchall()
+
             """ for line in data:
                 outputLine = []
                 for col in line:
@@ -108,8 +174,6 @@ def dbEntry():
     conn = sql.connect('inventory.db')
     cursor = conn.cursor()
 
-    # Creating the drop down list for categories.
-
     if request.method == "POST":
         category = request.form["category_dropdown"]
 
@@ -118,17 +182,26 @@ def dbEntry():
                            "make"], request.form["model"], request.form["serialNum"], request.form["issuedTo"], request.form["dateIssued"], request.form["dateOfPurchase"], request.form["accessories"], request.form["notes"], convertToBinaryData(request.files["photo"]), request.form["status"]))
             conn.commit()
         elif category == "PPE":
-            i = 1
+            cursor.execute("INSERT INTO ppe (type, serialNum, dateOfManufacture, issuedTo) VALUES (?,?,?,?)", (
+                request.form["type"], request.form["serialNum"], request.form["dateOfManufacture"], request.form["issuedTo"]))
+            conn.commit()
         elif category == "Equipment":
-            i = 1
+            cursor.execute("INSERT INTO equipment (type, make, model, serialNum, issuedTo) VALUES (?,?,?,?,?)", (
+                request.form["type"], request.form["make"], request.form["model"], request.form["serialNum"], request.form["issuedTo"]))
+            conn.commit()
         elif category == "Air Pack":
-            i = 1
+            cursor.execute("INSERT INTO airpack (serialNum, location) VALUES (?,?)", (
+                request.form["serialNum"], request.form["location"]))
+            conn.commit()
         elif category == "Personnel":
-            i = 1
+            cursor.execute("INSERT INTO personnel (name, rank, primaryRole, address, phone, email, emergencyContact, dateJoined, certifications, dateOfLastPhysical) VALUES (?,?,?,?,?,?,?,?,?,?)", (
+                request.form["name"], request.form["rank"], request.form["primaryRole"], request.form["address"], request.form["phone"], request.form["email"], request.form["emergencyContact"], request.form["dateJoined"], request.form["certifications"], request.form["dateOfLastPhyiscal"]))
+            conn.commit()
 
     return render_template('databaseEntry.html', category_dropdown=category_dropdown)
 
 
+# Creating tables in the DB.
 @app.route("/createDatabase", methods=['GET', 'POST'])
 def createDatabase():
     conn = sql.connect('inventory.db')
