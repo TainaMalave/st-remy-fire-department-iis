@@ -39,8 +39,31 @@
         PPE: [
           { column: "type", type: "string" },
           { column: "serialNum", type: "string" },
-          { column: "issuedTo", type: "string" },
           { column: "dateOfManufacturer", type: "date" },
+          { column: "issuedTo", type: "string" },
+        ],
+        Equipment: [
+          { column: "type", type: "string" },
+          { column: "make", type: "string" },
+          { column: "model", type: "string" },
+          { column: "serialNum", type: "string" },
+          { column: "issuedTo", type: "string" },
+        ],
+        "Air Pack": [
+          { column: "serialNum", type: "string" },
+          { column: "location", type: "text" },
+        ],
+        Personnel: [
+          { column: "name", type: "string" },
+          { column: "rank", type: "string" },
+          { column: "primaryRole", type: "string" },
+          { column: "address", type: "text" },
+          { column: "phone", type: "string" },
+          { column: "email", type: "string" },
+          { column: "emergencyContact", type: "string" },
+          { column: "dateJoined", type: "date" },
+          { column: "certifications", type: "text" },
+          { column: "dateOfLastPhyiscal", type: "date" },
         ],
       };
 
