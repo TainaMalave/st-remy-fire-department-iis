@@ -20,52 +20,7 @@
     </form>
 
     <script>
-      var inputs = {
-        Radio: [
-          { column: "id", type: "string" },
-          { column: "barcode", type: "image" },
-          { column: "type", type: "string" },
-          { column: "make", type: "string" },
-          { column: "model", type: "string" },
-          { column: "serialNum", type: "string" },
-          { column: "issuedTo", type: "string" },
-          { column: "dateIssued", type: "date" },
-          { column: "dateOfPurchase", type: "date" },
-          { column: "accessories", type: "string" },
-          { column: "notes", type: "text" },
-          { column: "photo", type: "image" },
-          { column: "status", type: "boolean" },
-        ],
-        PPE: [
-          { column: "type", type: "string" },
-          { column: "serialNum", type: "string" },
-          { column: "dateOfManufacture", type: "date" },
-          { column: "issuedTo", type: "string" },
-        ],
-        Equipment: [
-          { column: "type", type: "string" },
-          { column: "make", type: "string" },
-          { column: "model", type: "string" },
-          { column: "serialNum", type: "string" },
-          { column: "issuedTo", type: "string" },
-        ],
-        "Air Pack": [
-          { column: "serialNum", type: "string" },
-          { column: "location", type: "text" },
-        ],
-        Personnel: [
-          { column: "name", type: "string" },
-          { column: "rank", type: "string" },
-          { column: "primaryRole", type: "string" },
-          { column: "address", type: "text" },
-          { column: "phone", type: "string" },
-          { column: "email", type: "string" },
-          { column: "emergencyContact", type: "string" },
-          { column: "dateJoined", type: "date" },
-          { column: "certifications", type: "text" },
-          { column: "dateOfLastPhyiscal", type: "date" },
-        ],
-      };
+      var inputs = {{category_definition | safe}};
 
       function toWords(camel) {
         var result = camel.replace(/([A-Z])/g, " $1");
@@ -90,6 +45,7 @@
 
           switch (categoryInput.type) {
             case "string":
+            case "link":
               var stringInput = document.createElement("input");
               stringInput.name = categoryInput.column;
               stringInput.type = "text";
