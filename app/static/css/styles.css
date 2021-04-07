@@ -1,7 +1,29 @@
-.navbar-custom { 
-    background-color: #286A9F !important;
+.navbar-custom {
+  background-color: #286a9f !important;
 }
 
 .navbar-custom a {
-    color: #fff !important;
+  color: #fff !important;
+}
+
+/* Styling Tables */
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 1rem;
+}
+
+th {
+  text-align: left;
+}
+
+table {
+  border-spacing: 0.313rem;
 }
