@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Details</title>
+  </head>
+  <body>
+    <div class="left-column">
+      {% for title in left_column.keys() %}
+      <div class="left-info">
+        <label>{{title}}</label>
+        <span>{{left_column[title] | safe}}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="right-column">
+      {% for title in right_column.keys() %}
+      <div class="right-info">
+        <label>{{title}}</label>
+        <span>{{right_column[title] | safe}}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
