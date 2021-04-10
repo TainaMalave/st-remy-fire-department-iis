@@ -261,7 +261,7 @@ def search():
             return render_template('search.html', data=data, category=category, category_definition=category_definition, category_dropdown=get_category_names())
         except:
             return render_template('search.html', category_dropdown=get_category_names(), category_definition=category_definition, category=category)
-    return render_template('search.html', category_definition=category_definition, category_dropdown=get_category_names(), category=category)
+    return render_template('search.html', category_definition=category_definition, category_dropdown=get_category_names())
 
 
 def convertToBinaryData(file):
