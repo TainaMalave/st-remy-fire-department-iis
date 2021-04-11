@@ -36,3 +36,7 @@ Backend -
 - SQLITE3
 - Flask
 - Python
+
+## Screenshots
+Index Page
+![alt text](screenshots/index_screenshot.png)
