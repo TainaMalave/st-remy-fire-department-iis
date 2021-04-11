@@ -134,3 +134,34 @@ table {
   margin: 0 auto;
 }
 /* End Search Page Styling */
+
+/* Styling Inventory Details Page */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.details-wrapper { 
+  display: flex;
+  margin-top: 6.25rem;
+}
+
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
+}
+
+.details-wrapper label {
+  font-weight: 600;
+}
+
+.left-info {
+  margin-right: 20rem;
+}
+
+
+
+
