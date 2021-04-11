@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 import sqlite3 as sql
 import base64
 import json
@@ -173,23 +173,24 @@ def get_category_names():
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret key' #figure out what this does lol 
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
-
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
     error = None
     if request.method == 'POST':
         if request.form['username'] != 'admin' or request.form['password'] != 'password123':
             error = 'Invalid Credentials. Please try again.'
         else:
+            session['username'] = request.form['username']
             return redirect(url_for('searchOrEntry'))
-    return render_template('login.html', error=error)
+    return render_template('index.html', error=error)
 
+@app.route("/logout")
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 @app.route("/searchOrEntry")
 def searchOrEntry():
