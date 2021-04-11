@@ -1,26 +1,14 @@
-  
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search Database</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/static/css/styles.css">
-  </head>
-  <body>
-    <h1><center>What would you like to search?</center></h1>
+{% extends "base.html" %} 
+{% block title %}Search Database{% endblock %} 
+{% block head %}
+{{ super() }}
+{% endblock %} 
+
+<!-- Content For Search Page -->
+{% block content %}
+<h1><center>What would you like to search?</center></h1>
     <form class="example" method="post" action="" >
-      <input type="text" placeholder="Search by ID" name="search" />
+      <input type="text" placeholder="Search The Database" name="search" />
       <button type="submit">Submit<i class="fa fa-search"></i>
       </button>
       <div class="select">
@@ -55,5 +43,4 @@
         </center>
       </table>
     </div>
-  </body>
-</html>
+{% endblock %}
