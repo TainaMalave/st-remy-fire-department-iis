@@ -1,10 +1,31 @@
-{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %}
+{% extends "base.html" %} 
+{% block title %}Login{% endblock %}
+{% block head %}
 {{ super() }}
-<style type="text/css">
-  .important {
-    color: #336699;
-  }
-</style>
-{% endblock %} {% block content %}
-<h1>Index</h1>
-<p class="important">Welcome on my awesome homepage. {% endblock %}</p>
+
+{% endblock %} 
+
+{% block content %}
+
+<div class="wrapper">
+  <div class="login-container">
+    <div class="title">
+      <h1>St. Remy Fire Department</h1>
+    </div>
+
+    <div class="sub-title">
+        <h3>Inventory and Information System</h3>
+    </div>
+
+    <form action="" method="POST">
+        <div class="login-form">
+          <input id="username-input" name="username" type="text" placeholder="enter username...">
+          <input name="password" type="password" placeholder="enter password...">
+
+          <button class="login-btn" type="submit">LOGIN</button>
+        </div>
+    </form>
+  </div>
+</div>
+  
+{% endblock %}
