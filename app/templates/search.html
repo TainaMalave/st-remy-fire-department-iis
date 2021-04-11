@@ -2,45 +2,59 @@
 {% block title %}Search Database{% endblock %} 
 {% block head %}
 {{ super() }}
+
+<!-- Link To Icon. Only Used On This Page -->
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+crossorigin="anonymous"
+/>
+
 {% endblock %} 
+
 
 <!-- Content For Search Page -->
 {% block content %}
-<h1><center>What would you like to search?</center></h1>
-    <form class="example" method="post" action="" >
-      <input type="text" placeholder="Search The Database" name="search" />
-      <button type="submit">Submit<i class="fa fa-search"></i>
-      </button>
-      <div class="select">
-        <select name="category_dropdown" id="category_dropdown">
-          {% for each in category_dropdown %}
-          {% if each == category %}
-          <option value="{{each}}" selected="selected">{{each}}</option>
-          {% else %}
-          <option value="{{each}}">{{each}}</option>
-          {% endif %}
-          {% endfor %}
-        </select>
-      </div>
-    </form>
-    <div class="results-container">
-      <table>
-          <tr>
-            {% for column in category_definition[category] %}
-                <th>{{ column.header }}</th>
-            {% endfor %}
-          </tr>
-        <center>
-          
-          {% for item in data %}
-                <tr>
-                  {%for i in range(0, item|length)%}
-                  <td>{{ item[i] | safe }}</td>
-                  {% endfor %}
-                    </br>
-                </tr>
-          {% endfor %}
-        </center>
-      </table>
+<div class="form-container">
+  <h1>What Would You Like To Search?</h1>
+  <form class="example" method="post" action="" >
+    <input type="text" placeholder="search..." name="search" />
+    <button type="submit">
+      <i class="fas fa-plus-square"></i>
+    </button>
+    <div class="select">
+      <select name="category_dropdown" id="category_dropdown">
+        {% for each in category_dropdown %}
+        {% if each == category %}
+        <option value="{{each}}" selected="selected">{{each}}</option>
+        {% else %}
+        <option value="{{each}}">{{each}}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
     </div>
+  </form>
+</div>
+
+<!-- Showing Results From Search -->
+<div class="results-container">
+  <table>
+      <tr>
+        {% for column in category_definition[category] %}
+            <th>{{ column.header }}</th>
+        {% endfor %}
+      </tr>
+    <center>
+      {% for item in data %}
+            <tr>
+              {%for i in range(0, item|length)%}
+              <td>{{ item[i] | safe }}</td>
+              {% endfor %}
+                </br>
+            </tr>
+      {% endfor %}
+    </center>
+  </table>
+</div>
 {% endblock %}
