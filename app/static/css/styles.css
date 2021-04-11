@@ -26,4 +26,6 @@ th {
 
 table {
   border-spacing: 0.313rem;
+  margin: 0 auto;
+  background-color: lightblue;
 }
