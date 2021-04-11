@@ -1,28 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/styles/styles.css">
-    <title>St. Remy Fire Department</title>
-</head>
-<body>
-    <div class="container">
-        <div class="main-content">
-            <div class="main-title">
-                <h1>St.Remy Fire Department</h1>
-            </div>
+{% extends "base.html" %} 
+{% block title %} Search DB or DB Entry? {% endblock %}
+{% block head %}
+{{ super() }}
 
-            <div class="sub-title">
-                <h2>Welcome...Would you like to search the database or enter into the database?/h2>
-            </div>
+{% endblock %} 
 
-            <div class="main-btns">
-                <a href="/search" class="btnStyle">Search Database</a>
-                <a href="/dbEntry" class="btnStyle">Database Entry</a>
-            </div>
-        </div>
+{% block content %}
+<div class="search-entry-container">
+    <h1>Search Database or Database Entry?</h1>
+
+    <div class="se-page-btns">
+        <a class="se-btns" id="se-search-btn" href="{{ url_for('search') }}">Search Database</a>
+        <a class="se-btns" id="se-entry-btn" href="{{ url_for('dbEntry') }}">Database Entry</a>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

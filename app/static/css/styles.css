@@ -200,3 +200,41 @@ main {
 }
 
 
+/* Search or Enter Page */
+.search-entry-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 6.25rem;
+}
+
+.search-entry-container h1 {
+  font-weight: 400;
+}
+
+.se-page-btns {
+  margin: 0 auto;
+}
+
+.se-btns {
+  margin-top: 6.25rem;
+	background: #286a9f;;
+	border-radius: 5px;
+	border:1px solid #0b0e07;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+	padding:9px 23px;
+	text-decoration:none;
+}
+
+#se-search-btn {
+  margin-right: 5rem;
+}
+
+.se-btns:hover {
+  text-decoration: none;
+  color: white;
+}
+
+
