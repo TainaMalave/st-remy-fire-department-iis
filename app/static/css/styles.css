@@ -30,33 +30,33 @@ body {
 /* End Base Template Styling */
 
 /* Styling Search Page */
-.form-container {
+.search-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.form-container h1 {
+.search-container h1 {
   margin-top: 3.75rem;
   font-weight: 400;
 }
 
-form {
+.search-container form {
   min-height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-form button {
+.search-container form button {
   color: #286a9f;
   background: #f7fffe;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-form input, form button {
+.search-container form input, form button {
   padding: 0.5rem;
   font-size: 2rem;
   border: none;
@@ -163,5 +163,40 @@ main {
 }
 
 
+/* Index Page (aka Login) */
+.login-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6.25rem;
+}
+
+.login-form {
+  margin-top: 3.125rem;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.625rem;
+}
+
+#username-input {
+  margin-bottom: 1rem;
+}
+
+.login-form button {
+  width: 100%;
+  margin-top: 2rem;
+	background-color:#286a9f;
+	border-radius: 5px;
+	border:1px solid #0b0e07;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:16px;
+	padding: 0.563rem 1.438rem;
+}
 
 
