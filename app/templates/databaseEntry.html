@@ -1,104 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Database Entry</title>
-  </head>
-  <body>
-    <form method="post" action="" enctype="multipart/form-data">
-      <select name="category_dropdown" id="category_dropdown">
-        {% for each in category_dropdown %}
-        <option value="{{each}}">{{each}}</option>
-        {% endfor %}
-      </select>
+{% extends "base.html" %} 
+{% block title %} Search DB or DB Entry? {% endblock %}
+{% block head %}
+{{ super() }}
 
-      <div id="category-attributes"></div>
+{% endblock %} 
 
-      <button type="submit">SUBMIT</button>
-    </form>
+{% block content %}
+<div class="db-entry-container">
+  <form method="post" action="" enctype="multipart/form-data">
+    <select name="category_dropdown" id="category_dropdown">
+      {% for each in category_dropdown %}
+      <option value="{{each}}">{{each}}</option>
+      {% endfor %}
+    </select>
+  
+    <div id="category-attributes"></div>
+  
+    <button type="submit">SUBMIT</button>
+  </form>
+</div>
 
-    <script>
-      var inputs = {{category_definition | safe}};
+<!-- Javascript for this page -->
+<script>
+  var inputs = {{category_definition | safe}};
 
-      function toWords(camel) {
-        var result = camel.replace(/([A-Z])/g, " $1");
-        var finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+  function toWords(camel) {
+    var result = camel.replace(/([A-Z])/g, " $1");
+    var finalResult = result.charAt(0).toUpperCase() + result.slice(1);
 
-        return finalResult;
+    return finalResult;
+  }
+
+  function handleCategory(category) {
+    var categoryAttributes = document.getElementById("category-attributes");
+    categoryAttributes.innerHTML = "";
+    var categoryInputs = inputs[category];
+    var categoryElements = [];
+
+    for (let i = 0; i < categoryInputs.length; i++) {
+      const categoryInput = categoryInputs[i];
+      var inputWrapper = document.createElement("div");
+      var inputLabel = document.createElement("label");
+
+      inputLabel.innerText = toWords(categoryInput.column);
+      inputWrapper.appendChild(inputLabel);
+
+      switch (categoryInput.type) {
+        case "string":
+        case "link":
+          var stringInput = document.createElement("input");
+          stringInput.name = categoryInput.column;
+          stringInput.type = "text";
+
+          inputWrapper.appendChild(stringInput);
+          break;
+        case "date":
+          var dateInput = document.createElement("input");
+          dateInput.name = categoryInput.column;
+          dateInput.type = "date";
+
+          inputWrapper.appendChild(dateInput);
+          break;
+        case "text":
+          var textInput = document.createElement("textarea");
+          textInput.name = categoryInput.column;
+          textInput.rows = 5;
+          textInput.cols = 30;
+
+          inputWrapper.appendChild(textInput);
+          break;
+        case "boolean":
+          var booleanInput = document.createElement("input");
+          booleanInput.name = categoryInput.column;
+          booleanInput.type = "checkbox";
+
+          inputWrapper.appendChild(booleanInput);
+          break;
+
+        case "image":
+          var fileInput = document.createElement("input");
+          fileInput.name = categoryInput.column;
+          fileInput.type = "file";
+
+          inputWrapper.appendChild(fileInput);
+          break;
+        default:
+          break;
       }
 
-      function handleCategory(category) {
-        var categoryAttributes = document.getElementById("category-attributes");
-        categoryAttributes.innerHTML = "";
-        var categoryInputs = inputs[category];
-        var categoryElements = [];
+      categoryElements.push(inputWrapper);
+    }
+    for (let i = 0; i < categoryElements.length; i++) {
+      categoryAttributes.appendChild(categoryElements[i]);
+    }
+  }
 
-        for (let i = 0; i < categoryInputs.length; i++) {
-          const categoryInput = categoryInputs[i];
-          var inputWrapper = document.createElement("div");
-          var inputLabel = document.createElement("label");
+  var categoryDropdown = document.getElementById("category_dropdown");
+  categoryDropdown.onchange = function () {
+    handleCategory(categoryDropdown.value);
+  };
 
-          inputLabel.innerText = toWords(categoryInput.column);
-          inputWrapper.appendChild(inputLabel);
-
-          switch (categoryInput.type) {
-            case "string":
-            case "link":
-              var stringInput = document.createElement("input");
-              stringInput.name = categoryInput.column;
-              stringInput.type = "text";
-
-              inputWrapper.appendChild(stringInput);
-              break;
-            case "date":
-              var dateInput = document.createElement("input");
-              dateInput.name = categoryInput.column;
-              dateInput.type = "date";
-
-              inputWrapper.appendChild(dateInput);
-              break;
-            case "text":
-              var textInput = document.createElement("textarea");
-              textInput.name = categoryInput.column;
-              textInput.rows = 5;
-              textInput.cols = 30;
-
-              inputWrapper.appendChild(textInput);
-              break;
-            case "boolean":
-              var booleanInput = document.createElement("input");
-              booleanInput.name = categoryInput.column;
-              booleanInput.type = "checkbox";
-
-              inputWrapper.appendChild(booleanInput);
-              break;
-
-            case "image":
-              var fileInput = document.createElement("input");
-              fileInput.name = categoryInput.column;
-              fileInput.type = "file";
-
-              inputWrapper.appendChild(fileInput);
-              break;
-            default:
-              break;
-          }
-
-          categoryElements.push(inputWrapper);
-        }
-        for (let i = 0; i < categoryElements.length; i++) {
-          categoryAttributes.appendChild(categoryElements[i]);
-        }
-      }
-
-      var categoryDropdown = document.getElementById("category_dropdown");
-      categoryDropdown.onchange = function () {
-        handleCategory(categoryDropdown.value);
-      };
-
-      handleCategory(categoryDropdown.value);
-    </script>
-  </body>
-</html>
+  handleCategory(categoryDropdown.value);
+</script>
+{% endblock %}
