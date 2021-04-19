@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 
+
 <!-- Link To Icon. Only Used On This Page -->
 <link
 rel="stylesheet"
@@ -16,6 +17,7 @@ crossorigin="anonymous"
 
 <!-- Content For Search Page -->
 {% block content %}
+<div style="width: 500px" id="reader"></div>
 <div class="search-container">
   <h1>What Would You Like To Search?</h1>
   <form class="example" method="post" action="" >
@@ -57,4 +59,15 @@ crossorigin="anonymous"
     </center>
   </table>
 </div>
+
+<script src="{{url_for('static', filename='js/html5-qrcode.min.js')}}"></script>
+<script>
+  function onScanSuccess(qrCodeMessage) {
+	console.log(qrCodeMessage);
+}
+
+var html5QrcodeScanner = new Html5QrcodeScanner(
+	"reader", { fps: 10, qrbox: 250 });
+html5QrcodeScanner.render(onScanSuccess);
+</script>
 {% endblock %}
