@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="db-entry-container">
-  <form method="post" action="" enctype="multipart/form-data">
+  <form method="post" action="" enctype="multipart/form-data" id="dbEntry-form">
     <select name="category_dropdown" id="category_dropdown">
       {% for each in category_dropdown %}
       <option value="{{each}}">{{each}}</option>
@@ -16,11 +16,13 @@
   
     <div id="category-attributes"></div>
   
-    <button type="submit">SUBMIT</button>
+    <button type="button" id="dbEntryBtn">SUBMIT</button>
   </form>
 </div>
 
 <!-- Javascript for this page -->
+<script src="{{url_for('static', filename='js/qrcode.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
 <script>
   var inputs = {{category_definition | safe}};
 
@@ -43,7 +45,7 @@
       var inputLabel = document.createElement("label");
 
       inputLabel.innerText = toWords(categoryInput.column);
-      inputWrapper.appendChild(inputLabel);
+      
 
       switch (categoryInput.type) {
         case "string":
@@ -84,8 +86,22 @@
 
           inputWrapper.appendChild(fileInput);
           break;
+
+        case "qrcode":
+          var qrcodeInput = document.createElement("input");
+          qrcodeInput.type = "text";
+          qrcodeInput.name = categoryInput.column;
+          qrcodeInput.style.display = "none";
+          inputLabel = null;
+          inputWrapper.appendChild(qrcodeInput);
+          break;
+
         default:
           break;
+      }
+
+      if (inputLabel) {
+        inputWrapper.prepend(inputLabel);
       }
 
       categoryElements.push(inputWrapper);
@@ -101,5 +117,22 @@
   };
 
   handleCategory(categoryDropdown.value);
+
+
+  var dbEntryBtn = document.getElementById('dbEntryBtn');
+  dbEntryBtn.onclick = function () {
+    var idInput = document.querySelector('[name="id"]');
+    var barcodeInput = document.querySelector('[name="barcode"]');
+    var dbEntryForm = document.getElementById('dbEntry-form');
+    var qrCodeImageWrapper = document.createElement("div");
+    var qrCodeObj = new QRCode(qrCodeImageWrapper, idInput.value);
+    var qrCodeImage = qrCodeImageWrapper.querySelector("img");
+    setTimeout(function()
+    {
+      barcodeInput.value = qrCodeImage.src;
+      //console.log(qrCodeImage.src);
+      dbEntryForm.submit();
+    });
+  }
 </script>
 {% endblock %}

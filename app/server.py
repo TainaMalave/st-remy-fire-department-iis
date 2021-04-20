@@ -38,6 +38,12 @@ class model:
                             base64.b64encode(field).decode('ascii') + "'/>"
                     else:
                         item[column] = "thats sad man :,("
+                elif definition_column["type"] == "qrcode":
+                    if field is not None:
+                        item[column] = "<img src='" + \
+                            field + "'/>"
+                    else:
+                        item[column] = "thats sad man :,("
                 elif definition_column["type"] == "link":
                     url = "/details?row=" + \
                         str(item["row"]) + "&category=" + self.category
@@ -90,7 +96,7 @@ class radio_model(model):
     table_name = "radio"
     category = "radio"
     definition = [{"column": "id", "type": "link", "header": "ID"},
-                  {"column": "barcode", "type": "image", "header": "Barcode"},
+                  {"column": "barcode", "type": "qrcode", "header": "Barcode"},
                   {"column": "type", "type": "string", "header": "Type"},
                   {"column": "make", "type": "string", "header": "Make"},
                   {"column": "model", "type": "string", "header": "Model"},
@@ -170,6 +176,8 @@ category_definition = {
 
 def get_category_names():
     return category_definition.keys()
+
+
 
 
 app = Flask(__name__)
@@ -276,9 +284,10 @@ def dbEntry():
 
     if request.method == "POST":
         category = request.form["category_dropdown"]
+        id = request.form["id"];
 
         if category == "Radio":
-            cursor.execute("INSERT INTO radio (id, barcode, type, make, model, serialNum, issuedTo, dateIssued, dateOfPurchase, accessories, notes, photo, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", (request.form["id"], convertToBinaryData(request.files["barcode"]), request.form["type"], request.form[
+            cursor.execute("INSERT INTO radio (id, barcode, type, make, model, serialNum, issuedTo, dateIssued, dateOfPurchase, accessories, notes, photo, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", (request.form["id"], request.form["barcode"], request.form["type"], request.form[
                            "make"], request.form["model"], request.form["serialNum"], request.form["issuedTo"], request.form["dateIssued"], request.form["dateOfPurchase"], request.form["accessories"], request.form["notes"], convertToBinaryData(request.files["photo"]), request.form["status"]))
             conn.commit()
         elif category == "PPE":
@@ -356,7 +365,7 @@ def createDatabase():
         cursor.execute("DROP TABLE personnel")
         conn.commit()
     if schema_version == 0:
-        cursor.execute('CREATE TABLE radio (row INTEGER PRIMARY KEY AUTOINCREMENT, id VARCHAR(20), barcode BIGBLOB, type VARCHAR(40), make VARCHAR(25), model VARCHAR(25), serialNum VARCHAR(35), issuedTo VARCHAR(35), dateIssued DATE, dateOfPurchase DATE, accessories TEXT, notes TEXT, photo BIGBLOB, status BIT)')
+        cursor.execute('CREATE TABLE radio (row INTEGER PRIMARY KEY AUTOINCREMENT, id VARCHAR(20), barcode BIGTEXT, type VARCHAR(40), make VARCHAR(25), model VARCHAR(25), serialNum VARCHAR(35), issuedTo VARCHAR(35), dateIssued DATE, dateOfPurchase DATE, accessories TEXT, notes TEXT, photo BIGBLOB, status BIT)')
 
         conn.commit()
 
@@ -378,6 +387,7 @@ def createDatabase():
         cursor.execute('CREATE TABLE personnel (row INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(35), rank VARCHAR(35), primaryRole VARCHAR(35), address TEXT, phone VARCHAR(12), email VARCHAR(50), emergencyContact VARCHAR(35), dateJoined DATE, certifications TEXT, dateOfLastPhysical DATE, photo BIGBLOB)')
 
         conn.commit()
+    
 
 
 if __name__ == "__main__":

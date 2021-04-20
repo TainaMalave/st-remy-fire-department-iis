@@ -20,8 +20,8 @@ crossorigin="anonymous"
 <div style="width: 500px" id="reader"></div>
 <div class="search-container">
   <h1>What Would You Like To Search?</h1>
-  <form class="example" method="post" action="" >
-    <input type="text" placeholder="search..." name="search" />
+  <form class="example" method="post" action="" id="search-form">
+    <input type="text" placeholder="search..." name="search" id="search-bar" />
     <button type="submit">
       <i class="fas fa-plus-square"></i>
     </button>
@@ -63,7 +63,12 @@ crossorigin="anonymous"
 <script src="{{url_for('static', filename='js/html5-qrcode.min.js')}}"></script>
 <script>
   function onScanSuccess(qrCodeMessage) {
-	console.log(qrCodeMessage);
+    var searchBar = document.getElementById('search-bar');
+    searchBar.value = qrCodeMessage;
+    var searchForm = document.getElementById('search-form');
+    searchForm.submit();
+	  //console.log(qrCodeMessage);
+
 }
 
 var html5QrcodeScanner = new Html5QrcodeScanner(
